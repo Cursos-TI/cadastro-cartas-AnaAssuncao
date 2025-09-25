@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 // Desafio Super Trunfo - Países
-// Tema 1 - Cadastro das cartas
-// Objetivo: No nível novato você deve criar as cartas representando as cidades utilizando scanf para entrada de dados e printf para exibir as informações.
+// Tema 2 - Calculando Densidade Populacional e PIB per Capita
+// Objetivo: No nível aventureito.
 
 int main() {
     char letraPrimeiroEstado, letraSegundoEstado;
@@ -12,6 +12,9 @@ int main() {
     float areaPrimeiroEstado, areaSegundoEstado;
     float PIBPrimeiroEstado, PIBSegundoEstado;
     int qtPontoTurismoPrimeiroEstado, qtPontoTurismoSegundoEstado;
+    float densidadePopulacionalPrimeiroEstado, densidadePopulacionalSegundoEstado;
+    float PIBperCapitaPrimeiroEstado, PIBperCapitaSegundoEstado;
+    const float BILHAO = 1000000000.0f;
 
     printf("Iniciaremos o cadastro da primeira carta:\n");
     printf("\n");
@@ -35,6 +38,11 @@ int main() {
 
     printf("Insira a quantidade de pontos turísticos da cidade: ");
     scanf("%d", &qtPontoTurismoPrimeiroEstado);
+
+    // Cálculos da primeira carta
+    densidadePopulacionalPrimeiroEstado = (float) populacaoPrimeiroEstado / areaPrimeiroEstado;
+    // PIB está em bilhões, então multiplicamos por 1 bilhão (1.000.000.000) para obter o valor em reais
+    PIBperCapitaPrimeiroEstado = (PIBPrimeiroEstado * BILHAO) / (float) populacaoPrimeiroEstado;
 
     printf("\n");
     printf("Iniciaremos o cadastro da segunda carta\n");
@@ -60,7 +68,12 @@ int main() {
     printf("Insira a quantidade de pontos turísticos da cidade: ");
     scanf("%d", &qtPontoTurismoSegundoEstado);
 
-// Impressão dos dados
+    // Cálculos da segunda carta 
+    densidadePopulacionalSegundoEstado = (float) populacaoSegundoEstado / areaSegundoEstado;
+    // PIB está em bilhões, então multiplicamos por 1 bilhão (1.000.000.000) para obter o valor em reais
+    PIBperCapitaSegundoEstado = (PIBSegundoEstado * BILHAO) / (float) populacaoSegundoEstado;
+
+    // Impressão das Cartas
     printf("\nCarta 1:\n");
     printf("Estado: %c\n", letraPrimeiroEstado);
     printf("Código: %s\n", codigoPrimeiroEstado);
@@ -69,6 +82,8 @@ int main() {
     printf("Área: %.2f km²\n", areaPrimeiroEstado);
     printf("PIB: R$ %.2f bilhões de reais\n", PIBPrimeiroEstado);
     printf("Número de Pontos turísticos: %d\n", qtPontoTurismoPrimeiroEstado);
+    printf("Densidade Populacional: %.2f hab/km²\n", densidadePopulacionalPrimeiroEstado);
+    printf("PIB per Capita: %.2f reais\n", PIBperCapitaPrimeiroEstado);
 
     printf("\nCarta 2:\n");
     printf("Estado: %c\n", letraSegundoEstado);
@@ -78,6 +93,8 @@ int main() {
     printf("Área: %.2f km²\n", areaSegundoEstado);
     printf("PIB: R$ %.2f bilhões de reais\n", PIBSegundoEstado);
     printf("Número de Pontos turísticos: %d\n", qtPontoTurismoSegundoEstado);
+    printf("Densidade Populacional: %.2f hab/km²\n", densidadePopulacionalSegundoEstado);
+    printf("PIB per Capita: %.2f reais\n", PIBperCapitaSegundoEstado);
 
     return 0;
 } 
