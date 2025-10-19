@@ -1,9 +1,29 @@
 #include <stdio.h>
 
 // Comparando Cartas do Super Trunfo.
-// Desafio: nível novato.
+// Desafio: nível aventureiro.
 // Implementação da lógica para comparar duas cartas cadastradas e determinar a vencedora com base em um atributo numérico usando estruturas de decisão.
-// Atributo de comparação: PIB.
+
+
+// Função genérica para comparar qualquer atributo numérico
+void compararAtributo(float atributoPrimeiroEstado, float atributoSegundoEstado,
+                      char nomeCidadePrimeiroEstado[], char nomeCidadeSegundoEstado[],
+                      char atributo[]) {
+    printf("COMPARANDO: %s \n", atributo);
+    printf("Carta 1: cidade %s → valor %.2f\n", nomeCidadePrimeiroEstado, atributoPrimeiroEstado);
+    printf("Carta 2: cidade %s → valor %.2f\n", nomeCidadeSegundoEstado, atributoSegundoEstado);
+    printf("-------------------------------------------------------\n");
+
+    if (atributoPrimeiroEstado > atributoSegundoEstado) {
+        printf("🏆 Carta 1 (%s) venceu na categoria %s!\n",
+               nomeCidadePrimeiroEstado, atributo);
+    } else if (atributoPrimeiroEstado < atributoSegundoEstado) {
+        printf("🏆 Carta 2 (%s) venceu na categoria %s!\n",
+               nomeCidadeSegundoEstado, atributo);
+    } else {
+        printf("🤝 Empate! Mesmo valor no atributo %s!\n", atributo);
+    }
+}
 
 int main() {
     char letraPrimeiroEstado, letraSegundoEstado;
@@ -107,7 +127,7 @@ int main() {
     int venceuPIBperCapita = PIBperCapitaPrimeiroEstado > PIBperCapitaSegundoEstado;
     int venceuSuperPoder = superPoderPrimeiroEstado > superPoderSegundoEstado;
 
-    printf("Comparação de Cartas:\n");
+    printf("Comparação de Cartas parte 1:\n");
     printf("População: Carta %d venceu (%d)\n", venceuPopulacao ? 1 : 2, venceuPopulacao);
     printf("Área: Carta %d venceu (%d)\n", venceuArea ? 1 : 2, venceuArea);
     printf("PIB: Carta %d venceu (%d)\n", venceuPIB ? 1 : 2, venceuPIB);
@@ -119,24 +139,89 @@ int main() {
 
     // =====================================================================
     // Início das alterações do Super Trunfo em c: Desenvolvendo a Lógica do Jogo
-    printf("\n ******** COMPARAÇÃO DE CARTAS SUPER TRUNFO.C ******** \n");
+    printf("\n ******** COMPARAÇÃO DE CARTAS SUPER_TRUNFO.C parte 2 ******** \n");
 
     // -------------------------------------------------------
-    // Comparação baseada no PIB:
+    // Comparação baseada:
     // -------------------------------------------------------
     // Aqui, comparamos o valor do PIB das duas cartas.
     // A carta que tiver o maior PIB será considerada a vencedora nesta categoria.
-    printf("Comparando PIB das cidades:\n");
-    printf(" - %s: %.2f bilhões\n", nomeCidadePrimeiroEstado, PIBPrimeiroEstado);
-    printf(" - %s: %.2f bilhões\n", nomeCidadeSegundoEstado, PIBSegundoEstado);
+    int opcao;
 
-    if (PIBPrimeiroEstado > PIBSegundoEstado) {
-        printf("Resultado: Carta 1 (%s) venceu na categoria PIB!\n", nomeCidadePrimeiroEstado);
-    } else if (PIBPrimeiroEstado < PIBSegundoEstado) {
-        printf("Resultado: Carta 2 (%s) venceu na categoria PIB!\n", nomeCidadeSegundoEstado);
-    } else {
-        printf("Resultado: Empate! Ambas as cidades têm o mesmo PIB.\n");
+     // Menu de comparação
+    printf("===== MENU PRINCIPAL =====\n");
+    printf("1. População\n");
+    printf("2. Área\n");
+    printf("3. PIB\n");
+    printf("4. Pontos Turísticos\n");
+    printf("5. Densidade Populacional\n");
+    printf("6. PIB per Capita\n");
+    printf("7. Super Poder\n");
+    printf("Escolha uma opção para comparar (1-7): ");
+    scanf("%d", &opcao);
+
+    printf("\n===== RESULTADO =====\n");
+    switch (opcao) {
+    case 1:
+        // Usando a função genérica para comparar qualquer atributo
+        compararAtributo(populacaoPrimeiroEstado, populacaoSegundoEstado,
+                         nomeCidadePrimeiroEstado, nomeCidadeSegundoEstado,
+                         "População");
+        break;
+
+    case 2:
+        compararAtributo(areaPrimeiroEstado, areaSegundoEstado,
+                         nomeCidadePrimeiroEstado, nomeCidadeSegundoEstado,
+                         "Área");
+        break;
+
+    case 3:
+        compararAtributo(PIBPrimeiroEstado, PIBSegundoEstado,
+                         nomeCidadePrimeiroEstado, nomeCidadeSegundoEstado,
+                         "PIB");
+        break;
+
+    case 4:
+        compararAtributo(qtPontoTurismoPrimeiroEstado, qtPontoTurismoSegundoEstado,
+                         nomeCidadePrimeiroEstado, nomeCidadeSegundoEstado,
+                         "Pontos Turísticos");
+        break;
+
+    case 5:
+        // Aqui é o caso ESPECIAL — menor densidade vence
+        printf("COMPARANDO: densidade populacional. \n");
+        printf("Carta 1: cidade %s → valor %.2f\n", nomeCidadePrimeiroEstado, densidadePopulacionalPrimeiroEstado);
+        printf("Carta 2: cidade %s → valor %.2f\n", nomeCidadeSegundoEstado, densidadePopulacionalSegundoEstado);
+        printf("-------------------------------------------------------\n");
+        if (densidadePopulacionalPrimeiroEstado < densidadePopulacionalSegundoEstado) {
+            printf("🏆 %s venceu (menor densidade = melhor qualidade de vida!)\n",
+                   nomeCidadePrimeiroEstado);
+        } else if (densidadePopulacionalPrimeiroEstado > densidadePopulacionalSegundoEstado) {
+            printf("🏆 %s venceu (menor densidade = melhor qualidade de vida!)\n",
+                   nomeCidadeSegundoEstado);
+        } else {
+            printf("🤝 Empate! Mesma densidade populacional.\n");
+        }
+        break;
+
+    case 6:
+        compararAtributo(PIBperCapitaPrimeiroEstado, PIBperCapitaSegundoEstado,
+                         nomeCidadePrimeiroEstado, nomeCidadeSegundoEstado,
+                         "PIB per Capita");
+        break;
+
+    case 7:
+        compararAtributo(superPoderPrimeiroEstado, superPoderSegundoEstado,
+                         nomeCidadePrimeiroEstado, nomeCidadeSegundoEstado,
+                         "Super Poder");
+        break;
+
+    default:
+        printf("⚠️ Opção inválida! Escolha um número de 1 a 7.\n");
     }
+
+
+    printf("\n=========================================\n");
 
     return 0;
 } 
